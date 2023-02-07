@@ -29,3 +29,30 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
 
             # Forward the response to the client
             client_socket.sendall(response)
+            
+            import socket
+
+# create a TCP socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# bind the socket to a specific address and port
+server_address = ('localhost', 12345)
+sock.bind(server_address)
+
+# listen for incoming connections
+sock.listen(1)
+print(f'Listening for incoming connections on {server_address}')
+
+# accept an incoming connection
+connection, client_address = sock.accept()
+print(f'Accepted incoming connection from {client_address}')
+
+# receive data from the client
+data = connection.recv(1024)
+print(f'Received data: {data.decode()}')
+
+# send data back to the client
+connection.sendall(b'Hello, client!')
+
+# close the connection
+connection.close()
